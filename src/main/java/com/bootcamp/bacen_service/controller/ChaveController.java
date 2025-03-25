@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RequestMapping("/api/bacen/chaves")
@@ -26,4 +27,13 @@ public class ChaveController {
         return ResponseEntity.status(CREATED).body(chaveService.buscarChave(chave));
     }
 
+    @PutMapping("/ativa/{chave}")
+    public ResponseEntity<ChaveResponseDTO> ativaChave(@PathVariable String chave) {
+        return ResponseEntity.status(ACCEPTED).body(chaveService.ativaDesativaChave(chave, true));
+    }
+
+    @PutMapping("/desativa/{chave}")
+    public ResponseEntity<ChaveResponseDTO> desativaChave(@PathVariable String chave) {
+        return ResponseEntity.status(ACCEPTED).body(chaveService.ativaDesativaChave(chave, false));
+    }
 }

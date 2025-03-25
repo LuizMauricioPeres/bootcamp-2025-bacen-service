@@ -40,4 +40,17 @@ public class ChaveService {
                 .build();
     }
 
+    public ChaveResponseDTO ativaDesativaChave(final String chavePesquisada, boolean ativa){
+        Chave chave= chaveRepository.findByChave(chavePesquisada).orElseThrow(
+                () -> new RuntimeException());
+
+        chave.setAtiva(ativa);
+        chave = chaveRepository.save(chave);
+
+        return ChaveResponseDTO.builder()
+                .chave(chave.getChave())
+                .ativa(chave.getAtiva())
+                .build();
+    }
+
 }
